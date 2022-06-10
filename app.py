@@ -7,7 +7,7 @@ from flask_session import Session
 from werkzeug.exceptions import default_exceptions
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from helpers import apology, login_required
+from helpers import apology, login_required, get_datetime
 
 
 # FLASK AND DB CONFIG HERE
@@ -71,3 +71,62 @@ def logout():
     """Log user out"""
     session.clear()
     return redirect("/")
+
+
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    """Register user"""
+    if request.method == "POST":
+        # Forget any user_id
+        session.clear()
+        # get values from form
+        firstname = request.form.get("firstname")
+        lastname = request.form.get("lastname")
+        username = request.form.get("username")
+        email = request.form.get("email")
+        password = request.form.get("password")
+        confirmation = request.form.get("confirmation")
+
+        # conditions to display apology
+        if not firstname:
+            return apology("Must provide first name")
+        elif not username:
+            return apology("Must provide username")
+        elif not email:
+            return apology("Must provide email")
+        elif not password:
+            return apology("Must provide password")
+        elif not confirmation:
+            return apology("Must provide password confirmation")
+
+        # condition if passwords do not match
+        elif password != confirmation:
+            return apology("Passwords do not match")
+
+        # Hash password
+        password = generate_password_hash(password)
+
+        username_check = db.execute("SELECT * FROM users WHERE username = :username",
+                                    username=username)
+        # if variable above exists, then username already taken
+        if username_check:
+            return apology("The username is already taken. Choose another.")
+
+        # Adding values from form into table users with a db query
+        db.execute("INSERT INTO users (firstname, lastname, email, username, password, datetime) VALUES (:firstname, :lastname, :email, :username, :password, :datetime)",
+                   firstname=firstname, lastname=lastname, email=email, username=username, password=password, datetime=get_datetime())
+
+        # Logging user in
+        users = db.execute("SELECT * FROM users WHERE username = :username",
+                           username=username)
+
+        # using variable to start session
+        session["user_id"] = users[0]["id"]
+
+        # Redirect to index.html
+        return redirect("/")
+
+    # get method provides route to register html
+    else:
+        return render_template("register.html")
