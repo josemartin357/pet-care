@@ -1,2 +1,11 @@
 <!-- this will extend from layout -->
 <!-- apology page will be here -->
+
+{% extends "layout.html" %} {% block title %} Apology {% endblock %} {% block
+main %}
+<img
+  alt="{{ top }}"
+  class="border img-fluid"
+  src="http://memegen.link/custom/{{ top | urlencode }}/{{ bottom | urlencode }}.jpg?alt=https://i.imgur.com/CsCgN7Ll.png&width=400"
+/>
+{% endblock %}

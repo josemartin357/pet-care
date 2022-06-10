@@ -1,2 +1,21 @@
 <!-- this will extend from layout -->
 <!-- login page will be here -->
+
+{% extends "layout.html" %} {% block title %} Sign In {% endblock %} {% block
+main %}
+<form action="/login" method="post">
+  <div>
+    <input
+      autocomplete="off"
+      autofocus
+      name="username"
+      placeholder="Enter your username"
+      type="text"
+    />
+  </div>
+  <div>
+    <input name="password" placeholder="Enter your password" type="password" />
+  </div>
+  <button type="submit">Sign In</button>
+</form>
+{% endblock %}
