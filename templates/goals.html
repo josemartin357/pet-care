@@ -1,2 +1,49 @@
 <!-- this will extend from layout -->
 <!-- page for future tasks page will be here -->
+
+{% extends "layout.html" %} {% block title %} Long-term goals{% endblock %} {%
+block main %}
+
+<h1>Long-term goals</h1>
+<p>
+  There are pending tasks, but don't require urgent attention?
+  <br />
+  Use this tool to add them!
+</p>
+<!-- input form -->
+<form action="/goals" method="post">
+  <input
+    id="longTask"
+    name="longTask"
+    autocomplete="off"
+    autofocus
+    placeholder="Add a new long-term task here"
+    type="text"
+  />
+</form>
+<table>
+  <!-- table head -->
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Created On</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <!-- if there are entries -->
+    {% if longTasks %}
+    <form method="post">
+      <!-- loop and display -->
+      {% for longTask in longTasks %}
+      <tr>
+        <td>{{ longTask.name }}</td>
+        <td>{{ longTask.datetime }}</td>
+      </tr>
+      {% endfor %}
+    </form>
+    {% endif %}
+  </tbody>
+</table>
+
+{% endblock %}

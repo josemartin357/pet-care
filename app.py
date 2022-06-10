@@ -152,3 +152,23 @@ def index():
                            user_id=session["user_id"])
         firstname = users[0]["firstname"]
         return render_template("index.html", tasks=tasks, name=firstname)
+
+
+@app.route("/goals", methods=["GET", "POST"])
+@login_required
+def goals():
+    """Show long term tasks"""
+    if request.method == "POST":
+        # take value from input in form at goals.html and store
+        longTask = request.form.get("longTask")
+        # if there is a value stored 
+        if longTask:
+            db.execute("INSERT INTO goals (name, user_id, datetime) VALUES (:longTask, :user_id, :datetime)",
+                       longTask=longTask, user_id=session["user_id"], datetime=get_datetime())
+        return redirect("/goals")
+    # else if method request is GET
+    else:
+        longTasks = db.execute("SELECT * FROM goals WHERE user_id = :user_id",
+                           user_id=session["user_id"])
+        return render_template("goals.html", longTasks=longTasks)
+
