@@ -4,6 +4,8 @@
 {% extends "layout.html" %} {% block title %} Index {% endblock %} {% block main
 %}
 
+<script src="/static/tasks.js"></script>
+
 <h1>Enter your pet activities here</h1>
 <!-- form to submit task -->
 <form action="/" method="post">
@@ -19,6 +21,7 @@
   </div>
   <button type="submit">Submit</button>
 </form>
+
 <table>
   <!-- table head where tasks will load -->
   <thead>
@@ -34,6 +37,16 @@
     <form>
       {% for task in tasks %}
       <tr>
+        <td class="checkbox">
+          <div>
+            <input
+              type="checkbox"
+              value="{{ task.id }}"
+              id="{{ task.id }}"
+              name="check_task"
+            />
+          </div>
+        </td>
         <td>{{ task.name }}</td>
         <td>{{ task.datetime }}</td>
       </tr>
@@ -42,5 +55,8 @@
     {% endif %}
   </tbody>
 </table>
-
+<!-- delete button -->
+<div>
+  <button type="submit">Delete Task</button>
+</div>
 {% endblock %}
