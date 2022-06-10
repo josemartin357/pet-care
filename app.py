@@ -197,3 +197,23 @@ def delete():
     tasks = db.execute("SELECT * FROM reminders WHERE user_id = :user_id",
                            user_id=session["user_id"])
     return (jsonify(tasks))
+
+
+# DELETE LONG TERM GOALS ROUTE
+@app.route("/delete_long_task", methods=["POST"])
+@login_required
+def delete_long_task():
+    """Delete long term tasks from goals.html"""
+    clicked_longTasks = request.form.getlist("click_longTask")
+    for item in clicked_longTasks:
+        clicked_longTask = db.execute("SELECT * FROM goals WHERE id = :clicked_longTask",
+                             clicked_longTask=item)
+        clicked_longTask = clicked_longTask[0]
+
+        db.execute("DELETE FROM goals WHERE id = :longTask_id",
+                   longTask_id=clicked_longTask['id'])
+
+    LongTasksLeft = db.execute("SELECT * FROM goals WHERE user_id = :user_id",
+                       user_id=session["user_id"])
+    return (jsonify(LongTasksLeft))
+

@@ -4,6 +4,9 @@
 {% extends "layout.html" %} {% block title %} Long-term goals{% endblock %} {%
 block main %}
 
+<!-- js link here -->
+<script src="/static/longTasks.js"></script>
+
 <h1>Long-term goals</h1>
 <p>
   There are pending tasks, but don't require urgent attention?
@@ -22,21 +25,32 @@ block main %}
   />
 </form>
 <table>
-  <!-- table head -->
+  <!-- TABLE HEAD -->
   <thead>
     <tr>
       <th>Task</th>
       <th>Created On</th>
     </tr>
   </thead>
-
-  <tbody>
+  <!-- TABLE BODY -->
+  <tbody id="longTasksTable">
     <!-- if there are entries -->
     {% if longTasks %}
     <form method="post">
       <!-- loop and display -->
       {% for longTask in longTasks %}
       <tr>
+        <td class="checkbox">
+          <div>
+            <input
+              type="checkbox"
+              value="{{ longTask.id }}"
+              id="{{ longTask.id }}"
+              name="click_longTask"
+              class="click_longTask"
+            />
+          </div>
+        </td>
         <td>{{ longTask.name }}</td>
         <td>{{ longTask.datetime }}</td>
       </tr>
@@ -45,5 +59,10 @@ block main %}
     {% endif %}
   </tbody>
 </table>
+
+<!-- DELETE BUTTON -->
+<div>
+  <button type="submit" id="delete_button">Delete Task</button>
+</div>
 
 {% endblock %}
