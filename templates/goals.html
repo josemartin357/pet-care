@@ -15,14 +15,17 @@ block main %}
 </p>
 <!-- input form -->
 <form action="/goals" method="post">
-  <input
-    id="longTask"
-    name="longTask"
-    autocomplete="off"
-    autofocus
-    placeholder="Add a new long-term task here"
-    type="text"
-  />
+  <div>
+    <input
+      id="longTask"
+      name="longTask"
+      autocomplete="off"
+      autofocus
+      placeholder="Add a new long-term task here"
+      type="text"
+    />
+  </div>
+  <button type="submit">Submit</button>
 </form>
 <table>
   <!-- TABLE HEAD -->
@@ -59,6 +62,11 @@ block main %}
     {% endif %}
   </tbody>
 </table>
+
+<!-- complete button -->
+<div>
+  <button type="submit" id="accomplished_task_button">Mark As Finished</button>
+</div>
 
 <!-- DELETE BUTTON -->
 <div>

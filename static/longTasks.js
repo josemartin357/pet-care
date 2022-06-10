@@ -23,7 +23,7 @@ $(document).ready(function () {
             // we run function that fills newLongTaskhtml with existing data
             $.each(data, function (i, item) {
               newLongTaskshtml +=
-                '<tr><td class="checkbox"><form action="/checked" method="post"><input type="checkbox" value="' +
+                '<tr><td class="checkbox"><form method="post"><input type="checkbox" value="' +
                 data[i]["id"] +
                 '" id="' +
                 data[i]["id"] +
@@ -34,6 +34,36 @@ $(document).ready(function () {
             });
           }
           //   appending table body with new html code
+          $("#longTasksTable").append(newLongTaskshtml);
+        },
+      });
+    }
+  });
+
+  // accomplished task
+  $("#accomplished_task_button").click(function () {
+    if ($("form").serialize().length != 0) {
+      $.ajax({
+        type: "POST",
+        url: "move_long_task",
+        data: $("form").serialize(),
+        success: function (data) {
+          $("#longTasksTable").empty();
+
+          var newLongTaskshtml = "";
+          if (data.length != 0) {
+            $.each(data, function (i, item) {
+              newLongTaskshtml +=
+                '<tr><td class="checkbox"><form method="post"><input type="checkbox" value="' +
+                data[i]["id"] +
+                '" id="' +
+                data[i]["id"] +
+                '" name="click_longTask"></form></td>';
+              newLongTaskshtml += "<td>" + data[i]["name"] + "</td>";
+              newLongTaskshtml += "<td>" + data[i]["datetime"] + "</td>";
+              newLongTaskshtml += "</tr>";
+            });
+          }
           $("#longTasksTable").append(newLongTaskshtml);
         },
       });

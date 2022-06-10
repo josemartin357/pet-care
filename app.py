@@ -70,6 +70,8 @@ def login():
     else:
         return render_template("login.html")
 
+
+
 # LOGOUT ROUTE
 @app.route("/logout")
 def logout():
@@ -114,7 +116,7 @@ def register():
 
         # Hash password
         password = generate_password_hash(password)
-
+        # query checks if input username is also stored in table users and stores as variable
         username_check = db.execute("SELECT * FROM users WHERE username = :username",
                                     username=username)
         # if variable above exists, then username already taken
@@ -283,8 +285,31 @@ def checked():
 def finished_task():
     """display finished tasks"""
     # get routes displays all completed tasks from user
-
     if request.method == "GET":
         finished_tasks = db.execute("SELECT * FROM completed WHERE user_id = :user_id",
                                user_id=session["user_id"])
         return render_template("completed.html", finished_tasks=finished_tasks)
+
+# ROUTE TO SEND LONG TERM GOALS TO ACCOMPLISHED
+@app.route("/move_long_task", methods=["POST"])
+@login_required
+def move_long_task():
+    """moving completed goals to accomplished page"""
+    clicked_long_tasks = request.form.getlist("click_longTask")
+    for item in clicked_long_tasks:
+        clicked_long_task = db.execute("SELECT * FROM goals WHERE id = :item_id",
+                                  item_id=item)
+        clicked_long_task = clicked_long_task[0]
+
+        # Insert checked item(s) to completed table
+        db.execute("INSERT INTO completed (name, user_id, datetime) VALUES (:name, :user_id, :datetime)",
+                   name=clicked_long_task['name'], user_id=session['user_id'], datetime=get_datetime())
+        # deleting checked item(s) from goals table
+        db.execute("DELETE FROM goals WHERE id = :task_id",
+                   task_id=clicked_long_task['id'])
+
+    # rendering all items based on user_id
+    longTasks = db.execute("SELECT * FROM goals WHERE user_id = :user_id",
+                       user_id=session["user_id"])
+
+    return (jsonify(longTasks))
