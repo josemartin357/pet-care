@@ -248,24 +248,28 @@ def delete_long_task():
 
 
 # ROUTE TO SEND TASKS TO ACCOMPLISHED PAGE
+# route to insert checked items to completed table while deleting from reminders table. Front end is supported with ajax.
 @app.route("/move_task", methods=["POST"])
 @login_required
 def checked():
     """moving completed items to accomplished page"""
+    # grabbing value from input in index.html and storing as variable
+    # getlist return a list of items for the given key. we use this since multiple checkboxes can be clicked
     clicked_tasks = request.form.getlist("click_task")
+    # we iterate thru list and define every item as item
     for item in clicked_tasks:
-        # define var that holds query to select the id of every checked_item
+        # define var that holds query to select the id of every clicked tasks
         clicked_task = db.execute("SELECT * FROM reminders WHERE id = :task",
                                       task=item)
         clicked_task = clicked_task[0]
-        # insert checked item(s) to completed table
+        # insert clicked tasks to table
         db.execute("INSERT INTO completed (name, user_id, datetime) VALUES (:name, :user_id, :datetime)",
                    name=clicked_task['name'], user_id=session['user_id'], datetime=get_datetime())
-        # removing checked item(s) from table
+        # removing clicked tasks from table
         db.execute("DELETE FROM reminders WHERE id = :task_id",
                    task_id=clicked_task['id'])
 
-    # rendering all tasks based on user_id
+    # rendering all active tasks based on user_id
     tasks = db.execute("SELECT * FROM reminders WHERE user_id = :user_id",
                            user_id=session["user_id"])
 
@@ -273,10 +277,13 @@ def checked():
     return (jsonify(tasks))
 
 # ROUTE TO DISPLAY ACCOMPLISHED TASKS
+# accomplished route requires login
 @app.route("/accomplished", methods=["GET"])
 @login_required
 def finished_task():
     """display finished tasks"""
+    # get routes displays all completed tasks from user
+
     if request.method == "GET":
         finished_tasks = db.execute("SELECT * FROM completed WHERE user_id = :user_id",
                                user_id=session["user_id"])
