@@ -29,11 +29,15 @@
   </thead>
   <!-- table body -->
   <tbody>
+    <!-- if there are tasks saved, show them -->
+    {% if tasks %}
     <form>
+      {% for task in tasks %}
       <tr>
         <td>{{ task.name }}</td>
         <td>{{ task.datetime }}</td>
       </tr>
+      {% endfor %}
     </form>
   </tbody>
 </table>
