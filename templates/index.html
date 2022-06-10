@@ -1,2 +1,41 @@
 <!-- this will extend from layout -->
 <!-- tasks page will be here -->
+
+{% extends "layout.html" %} {% block title %} Index {% endblock %} {% block main
+%}
+
+<h1>Enter your pet activities here</h1>
+<!-- form to submit task -->
+<form action="/" method="post">
+  <div>
+    <input
+      name="task"
+      id="task"
+      autocomplete="off"
+      autofocus
+      placeholder="Enter a task here"
+      type="text"
+    />
+  </div>
+  <button type="submit">Submit</button>
+</form>
+<table>
+  <!-- table head where tasks will load -->
+  <thead>
+    <tr>
+      <th>Task Details</th>
+      <th>Created On</th>
+    </tr>
+  </thead>
+  <!-- table body -->
+  <tbody>
+    <form>
+      <tr>
+        <td>{{ task.name }}</td>
+        <td>{{ task.datetime }}</td>
+      </tr>
+    </form>
+  </tbody>
+</table>
+
+{% endblock %}

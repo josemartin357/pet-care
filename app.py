@@ -130,3 +130,25 @@ def register():
     # get method provides route to register html
     else:
         return render_template("register.html")
+
+
+# main route and login required
+@app.route("/", methods=["GET", "POST"])
+@login_required
+def index():
+    """Show tasks items"""
+    # if there is a POST method request
+    if request.method == "POST":
+        task = request.form.get("task")
+        if task:
+            db.execute("INSERT INTO reminders (name, user_id, datetime) VALUES (:task, :user_id, :datetime)",
+                       task=task, user_id=session["user_id"], datetime=get_datetime())
+        return redirect("/")
+    # else if method request is GET
+    else:
+        tasks = db.execute("SELECT * FROM reminders WHERE user_id = :user_id",
+                               user_id=session["user_id"])
+        users = db.execute("SELECT * FROM users WHERE id = :user_id",
+                           user_id=session["user_id"])
+        firstname = users[0]["firstname"]
+        return render_template("index.html", tasks=tasks, name=firstname)
