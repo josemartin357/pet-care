@@ -261,7 +261,7 @@ def checked():
         # insert checked item(s) to completed table
         db.execute("INSERT INTO completed (name, user_id, datetime) VALUES (:name, :user_id, :datetime)",
                    name=clicked_task['name'], user_id=session['user_id'], datetime=get_datetime())
-        # removing checked item(s) from reminders table
+        # removing checked item(s) from table
         db.execute("DELETE FROM reminders WHERE id = :task_id",
                    task_id=clicked_task['id'])
 
@@ -271,3 +271,13 @@ def checked():
 
     # returning data as json for url checked in ajax
     return (jsonify(tasks))
+
+# ROUTE TO DISPLAY ACCOMPLISHED TASKS
+@app.route("/accomplished", methods=["GET"])
+@login_required
+def finished_task():
+    """display finished tasks"""
+    if request.method == "GET":
+        finished_tasks = db.execute("SELECT * FROM completed WHERE user_id = :user_id",
+                               user_id=session["user_id"])
+        return render_template("completed.html", finished_tasks=finished_tasks)
