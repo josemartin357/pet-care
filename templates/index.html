@@ -31,7 +31,7 @@
     </tr>
   </thead>
   <!-- table body -->
-  <tbody>
+  <tbody id="tasksTable">
     <!-- if there are tasks saved, show them -->
     {% if tasks %}
     <form>
@@ -43,7 +43,8 @@
               type="checkbox"
               value="{{ task.id }}"
               id="{{ task.id }}"
-              name="check_task"
+              name="click_task"
+              class="click_task"
             />
           </div>
         </td>
@@ -57,6 +58,6 @@
 </table>
 <!-- delete button -->
 <div>
-  <button type="submit">Delete Task</button>
+  <button type="submit" id="delete_button">Delete Task</button>
 </div>
 {% endblock %}

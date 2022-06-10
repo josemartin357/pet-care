@@ -1,6 +1,8 @@
 #application configurations to go here
 #routes to go here
 
+from asyncio import tasks
+import click
 from cs50 import SQL
 from flask import Flask, flash, jsonify, redirect, render_template, request, session, send_from_directory
 from flask_session import Session
@@ -40,6 +42,7 @@ db = SQL("sqlite:///todolist.db")
 # ROUTES HERE
 # ROUTES HERE
 
+# LOGIN ROUTE
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
@@ -65,7 +68,7 @@ def login():
     else:
         return render_template("login.html")
 
-
+# LOGOUT ROUTE
 @app.route("/logout")
 def logout():
     """Log user out"""
@@ -73,7 +76,7 @@ def logout():
     return redirect("/")
 
 
-
+# REGISTER ROUTE
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
@@ -131,7 +134,7 @@ def register():
     else:
         return render_template("register.html")
 
-
+# TASKS ROUTE (MAIN)
 # main route and login required
 @app.route("/", methods=["GET", "POST"])
 @login_required
@@ -153,7 +156,7 @@ def index():
         firstname = users[0]["firstname"]
         return render_template("index.html", tasks=tasks, name=firstname)
 
-
+# LONG TERM TASKS ROUTE
 @app.route("/goals", methods=["GET", "POST"])
 @login_required
 def goals():
@@ -172,3 +175,25 @@ def goals():
                            user_id=session["user_id"])
         return render_template("goals.html", longTasks=longTasks)
 
+
+# DELETE TASKS ROUTE
+@app.route("/delete", methods=["POST"])
+@login_required
+def delete():
+    """Delete tasks from index.html"""
+    clicked_tasks = request.form.getlist("click_task")
+    # we iterate thru list and define every item as checked_reminder
+    for item in clicked_tasks:
+        # define variable that holds query that gets the id for every checked item
+        clicked_task = db.execute("SELECT * FROM reminders WHERE id = :clicked_task",
+                             clicked_task=item)
+        clicked_task = clicked_task[0]
+
+        # deleting from table based on id obtained in variable above
+        db.execute("DELETE FROM reminders WHERE id = :clicked_id",
+                   clicked_id=clicked_task['id'])
+
+    # rendering remaining tasks based on user_id
+    tasks = db.execute("SELECT * FROM reminders WHERE user_id = :user_id",
+                           user_id=session["user_id"])
+    return (jsonify(tasks))
