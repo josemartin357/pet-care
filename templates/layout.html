@@ -5,7 +5,32 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <!-- css link -->
+    <link href="/static/styles.css" rel="stylesheet" />
+
+    <!-- NOTE: could use block title here -->
+    <title>PetCare</title>
   </head>
-  <body></body>
+  <body>
+    <nav>
+      <a href="/">PetCare</a>
+      <!-- NOTE: for use in hamburger icon for mobile/tablet -->
+      <button></button>
+      <div>
+        <!-- when user is logged-in -->
+        <ul>
+          <li>Tasks</li>
+          <li>Future Goals</li>
+          <li>Accomplished Tasks</li>
+          <li>User Settings</li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- NOTE: could include header here to display messages -->
+
+    <!-- main block that will be replaced by other htmls -->
+    <main>{% block main %}{% endblock %}</main>
+    <footer>Copyright © 2022</footer>
+  </body>
 </html>
