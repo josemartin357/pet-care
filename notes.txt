@@ -1,0 +1,25 @@
+schema layout
+
+CREATE TABLE IF NOT EXISTS "reminders"(
+id INTEGER, name TEXT, datetime REAL, user_id INTEGER,
+PRIMARY KEY(id),
+FOREIGN KEY(user_id) REFERENCES users(id));
+CREATE TABLE IF NOT EXISTS "users"(
+id INTEGER, firstname TEXT, lastname TEXT, email TEXT, username TEXT, datetime REAL, password REAL,
+PRIMARY KEY(id));
+CREATE TABLE IF NOT EXISTS "goals"(
+id INTEGER, name TEXT, user_id INTEGER, datetime REAL,
+PRIMARY KEY(id),
+FOREIGN KEY(user_id) REFERENCES users(id));
+CREATE TABLE IF NOT EXISTS "items"(
+id INTEGER, name TEXT, details TEXT, user_id INTEGER, list_id INTEGER, datetime REAL,
+FOREIGN KEY(list_id) REFERENCES lists(id),
+FOREIGN KEY(user_id) REFERENCES users(id),
+PRIMARY KEY(id));
+CREATE TABLE IF NOT EXISTS "lists"(
+id INTEGER, name TEXT, details TEXT, user_id INTEGER, datetime REAL,
+FOREIGN KEY(user_id) REFERENCES users(id),
+PRIMARY KEY(id));
+CREATE TABLE IF NOT EXISTS "completed"(
+user_id INTEGER, name TEXT, datetime REAL,
+FOREIGN KEY(user_id) REFERENCES users(id));
