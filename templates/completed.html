@@ -1,27 +1,42 @@
 <!-- this will extend from layout -->
-<!-- this page will have list of completed tasks -->
-<!-- CURRENTLY WORKING ON PASSING TASKS FROM INDEX.HTML (/ ROUTE) AND GOALS.HTML (/GOALS ROUTE) TO THIS PAGE -->
-
 {% extends "layout.html" %} {% block title %} Accomplished Tasks {% endblock %}
 {% block main %}
 
 <h1>Accomplished Tasks</h1>
 
 <table>
+  <!-- TABLE HEAD -->
   <thead>
     <tr>
       <th>Task</th>
       <th>Marked As Finished On</th>
     </tr>
   </thead>
-
+  <!-- TABLE BODY -->
   <tbody>
-    {% for item in finished_tasks %}
+    <!-- if there are tasks to display -->
+    {% if finished_tasks %}
+    <!-- iterate and reverse results -->
+    {% for item in finished_tasks | reverse %}
     <tr>
       <td>{{ item.name }}</td>
       <td>{{ item.datetime }}</td>
     </tr>
     {% endfor %}
+    <!-- else if there are no tasks to display -->
+    {% else %}
+    <tr>
+      <td>
+        No entries available.
+        <br />
+        Did you forget to mark your tasks as completed?
+        <br />
+        Click this
+        <a href="/"><span>link</span></a> and choose the tasks that have been
+        finished.
+      </td>
+    </tr>
+    {% endif %}
   </tbody>
 </table>
 <!-- BUTTON TO CLEAR TASKS -->

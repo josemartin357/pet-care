@@ -32,6 +32,10 @@ $(document).ready(function () {
               newLongTaskshtml += "<td>" + data[i]["datetime"] + "</td>";
               newLongTaskshtml += "</tr>";
             });
+          } else {
+            // else, if there is no data, fill html with this
+            newLongTaskshtml +=
+              "<tr><td>There are no tasks entered that are due in a long term.<br />Do not let your memory fail you.<br />Add them in this page.</td></tr>";
           }
           //   appending table body with new html code
           $("#longTasksTable").append(newLongTaskshtml);
@@ -63,6 +67,10 @@ $(document).ready(function () {
               newLongTaskshtml += "<td>" + data[i]["datetime"] + "</td>";
               newLongTaskshtml += "</tr>";
             });
+          } else {
+            // else, if there is no data, fill html with this
+            newLongTaskshtml +=
+              "<tr><td>There are no tasks entered that are due in a long term.<br />Do not let your memory fail you.<br />Add them in this page.</td></tr>";
           }
           $("#longTasksTable").append(newLongTaskshtml);
         },

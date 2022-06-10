@@ -1,6 +1,4 @@
 <!-- this will extend from layout -->
-<!-- page for future tasks page will be here -->
-
 {% extends "layout.html" %} {% block title %} Long-term goals{% endblock %} {%
 block main %}
 
@@ -13,6 +11,7 @@ block main %}
   <br />
   Use this tool to add them!
 </p>
+
 <!-- input form -->
 <form action="/goals" method="post">
   <div>
@@ -27,16 +26,21 @@ block main %}
   </div>
   <button type="submit">Submit</button>
 </form>
-<table>
+
+<table id="longTasksTable">
   <!-- TABLE HEAD -->
+  {% if longTasks %}
   <thead>
     <tr>
+      <th></th>
       <th>Task</th>
       <th>Created On</th>
     </tr>
   </thead>
+  {% endif %}
   <!-- TABLE BODY -->
   <tbody id="longTasksTable">
+    <!-- <tbody id="longTasksTable"> -->
     <!-- if there are entries -->
     {% if longTasks %}
     <form method="post">
@@ -59,6 +63,17 @@ block main %}
       </tr>
       {% endfor %}
     </form>
+    <!-- if there are no entries -->
+    {% else %}
+    <tr>
+      <td>
+        There are no tasks entered that are due in a long term.
+        <br />
+        Do not let your memory fail you.
+        <br />
+        Add them in this page.
+      </td>
+    </tr>
     {% endif %}
   </tbody>
 </table>
