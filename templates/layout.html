@@ -12,8 +12,8 @@
     <!-- ajax link -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
 
-    <!-- NOTE: could use block title here -->
-    <title>PetCare</title>
+    <!-- using block title from htmls -->
+    <title>PetCare: {% block title %}{% endblock %}</title>
   </head>
   <body>
     <nav>
@@ -22,12 +22,24 @@
       <button></button>
       <div>
         <!-- when user is logged-in -->
+        {% if session.user_id %}
         <ul>
           <li><a href="/">Tasks</a></li>
           <li><a href="/goals">Future Plans</a></li>
           <li><a href="/accomplished">Accomplished Tasks</a></li>
-          <li><a href="/">User Settings</a></li>
+          <li><a href="/logout">Sign Out</a></li>
         </ul>
+        <!-- if user not logged-in -->
+        {% else %}
+        <ul>
+          <li>
+            <a href="/register">Create Account</a>
+          </li>
+          <li>
+            <a href="/login">Sign In</a>
+          </li>
+        </ul>
+        {% endif %}
       </div>
     </nav>
 
