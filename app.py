@@ -46,7 +46,9 @@ db = SQL("sqlite:///todolist.db")
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
+    # Forget any user_id
     session.clear()
+    # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
         # Ensure username was submitted
         if not request.form.get("username"):
@@ -64,7 +66,7 @@ def login():
         session["user_id"] = users[0]["id"]
         # Redirect user to home page
         return redirect("/")
-
+    # User reached route via GET (as by clicking a link or via redirect)
     else:
         return render_template("login.html")
 
@@ -72,7 +74,9 @@ def login():
 @app.route("/logout")
 def logout():
     """Log user out"""
+    # Forget any user_id
     session.clear()
+    # Redirect user to login form
     return redirect("/")
 
 
@@ -80,6 +84,7 @@ def logout():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
+    # Post method to get data from form
     if request.method == "POST":
         # Forget any user_id
         session.clear()
@@ -121,6 +126,7 @@ def register():
                    firstname=firstname, lastname=lastname, email=email, username=username, password=password, datetime=get_datetime())
 
         # Logging user in
+        # db query selects username and stores in variable
         users = db.execute("SELECT * FROM users WHERE username = :username",
                            username=username)
 
@@ -142,49 +148,65 @@ def index():
     """Show tasks items"""
     # if there is a POST method request
     if request.method == "POST":
+        # storing value from input form at index.html
         task = request.form.get("task")
+        # if there is a data, execute db query to insert in table
         if task:
             db.execute("INSERT INTO reminders (name, user_id, datetime) VALUES (:task, :user_id, :datetime)",
                        task=task, user_id=session["user_id"], datetime=get_datetime())
+        # if a note is not inserted, return and display / (index.html)
         return redirect("/")
     # else if method request is GET
     else:
+        # variable holds query to get all tasks from user
         tasks = db.execute("SELECT * FROM reminders WHERE user_id = :user_id",
                                user_id=session["user_id"])
+        # variable holds query to get user
         users = db.execute("SELECT * FROM users WHERE id = :user_id",
                            user_id=session["user_id"])
+        # firstname takes value from column users in dictionary
         firstname = users[0]["firstname"]
+        # render index.html and pass values from tasks and firstname to it
         return render_template("index.html", tasks=tasks, name=firstname)
 
 # LONG TERM TASKS ROUTE
+# route /goals has two methods and requires login
 @app.route("/goals", methods=["GET", "POST"])
 @login_required
 def goals():
     """Show long term tasks"""
+    # if method request is POST
     if request.method == "POST":
         # take value from input in form at goals.html and store
         longTask = request.form.get("longTask")
         # if there is a value stored 
         if longTask:
+            # run db.query to insert in goals table
             db.execute("INSERT INTO goals (name, user_id, datetime) VALUES (:longTask, :user_id, :datetime)",
                        longTask=longTask, user_id=session["user_id"], datetime=get_datetime())
+        # else if there is no value to store, redirect to page
         return redirect("/goals")
     # else if method request is GET
     else:
+        # run query to get all tasks from user_id and store as variable
         longTasks = db.execute("SELECT * FROM goals WHERE user_id = :user_id",
                            user_id=session["user_id"])
+        # render html and pass variable above
         return render_template("goals.html", longTasks=longTasks)
 
 
 # DELETE TASKS ROUTE
+# delete route for tasks has post method and requires login
 @app.route("/delete", methods=["POST"])
 @login_required
 def delete():
     """Delete tasks from index.html"""
+    # grabbing value from input in index.html and storing as variable
+    # getlist return a list of items for the given key. we use this since multiple checkboxes can be clicked
     clicked_tasks = request.form.getlist("click_task")
-    # we iterate thru list and define every item as checked_reminder
+    # we iterate thru list and define every item as item
     for item in clicked_tasks:
-        # define variable that holds query that gets the id for every checked item
+        # define variable that holds query that gets the id for every clicked item
         clicked_task = db.execute("SELECT * FROM reminders WHERE id = :clicked_task",
                              clicked_task=item)
         clicked_task = clicked_task[0]
@@ -196,24 +218,31 @@ def delete():
     # rendering remaining tasks based on user_id
     tasks = db.execute("SELECT * FROM reminders WHERE user_id = :user_id",
                            user_id=session["user_id"])
+    # returning data as json for url checked in ajax
     return (jsonify(tasks))
 
 
-# DELETE LONG TERM GOALS ROUTE
+# DELETE LONG TERM TASKS ROUTE
+# delete route for long term tasks has post method and requires login
 @app.route("/delete_long_task", methods=["POST"])
 @login_required
 def delete_long_task():
     """Delete long term tasks from goals.html"""
+    # grabbing value from input in goals.html and storing as variable
+    # getlist return a list of items for the given key. we use this since multiple checkboxes can be clicked
     clicked_longTasks = request.form.getlist("click_longTask")
+    # we iterate thru list and define every item as item
     for item in clicked_longTasks:
+        # define variable that holds query that gets the id for every checked item
         clicked_longTask = db.execute("SELECT * FROM goals WHERE id = :clicked_longTask",
                              clicked_longTask=item)
         clicked_longTask = clicked_longTask[0]
-
+        # deleting from table based on id obtained in variable above
         db.execute("DELETE FROM goals WHERE id = :longTask_id",
                    longTask_id=clicked_longTask['id'])
-
+    # rendering remaining tasks based on user_id
     LongTasksLeft = db.execute("SELECT * FROM goals WHERE user_id = :user_id",
                        user_id=session["user_id"])
+    # returning data as json for url checked in ajax
     return (jsonify(LongTasksLeft))
 
