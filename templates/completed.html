@@ -1,2 +1,26 @@
 <!-- this will extend from layout -->
 <!-- this page will have list of completed tasks -->
+<!-- CURRENTLY WORKING ON PASSING TASKS FROM INDEX.HTML (/ ROUTE) AND GOALS.HTML (/GOALS ROUTE) TO THIS PAGE -->
+
+{% extends "layout.html" %} {% block title %} Accomplished Tasks {% endblock %}
+{% block main %}
+
+<h1>Accomplished Tasks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Marked As Finished On</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>{{ }}</td>
+      <td>{{ }}</td>
+    </tr>
+  </tbody>
+</table>
+
+{% endblock %}
