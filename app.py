@@ -280,15 +280,26 @@ def checked():
 
 # ROUTE TO DISPLAY ACCOMPLISHED TASKS
 # accomplished route requires login
-@app.route("/accomplished", methods=["GET"])
+@app.route("/accomplished", methods=["GET", "POST"])
 @login_required
 def finished_task():
     """display finished tasks"""
+    # post route to clear lists of tasks
+    if request.method == "POST":
+        # run query to delete tasks from user id
+        db.execute("DELETE FROM completed WHERE user_id = :user_id",
+                   user_id=session["user_id"])
+        return redirect("/accomplished")
     # get routes displays all completed tasks from user
-    if request.method == "GET":
+    else:
         finished_tasks = db.execute("SELECT * FROM completed WHERE user_id = :user_id",
                                user_id=session["user_id"])
         return render_template("completed.html", finished_tasks=finished_tasks)
+
+
+
+
+
 
 # ROUTE TO SEND LONG TERM GOALS TO ACCOMPLISHED
 @app.route("/move_long_task", methods=["POST"])
