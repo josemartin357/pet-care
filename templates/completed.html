@@ -16,11 +16,36 @@
   </thead>
 
   <tbody>
+    <!-- {% if completed %}  -->
+    {% for item in completed %}
     <tr>
-      <td>{{ }}</td>
-      <td>{{ }}</td>
+      <td>{{ item.name }}</td>
+      <td>{{ item.datetime }}</td>
     </tr>
+    {% endfor %}
+    <!-- {% else %} -->
+    <!-- <tr>
+      <td colspan="2" align="center">
+        No tasks have been completed.
+        <br />
+        Did you forget to mark your tasks as completed?
+        <br />
+        Click this
+        <a href="/"><span>link</span></a> and choose the tasks that have been
+        finished.
+      </td>
+    </tr> -->
+    <!-- {% endif %} -->
   </tbody>
 </table>
-
+<form method="post" action="/completed">
+  <button
+    type="submit"
+    id="clear_completed"
+    class="btn btn-danger"
+    style="width: 170px"
+  >
+    Clear your finished tasks
+  </button>
+</form>
 {% endblock %}

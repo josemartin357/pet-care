@@ -246,3 +246,28 @@ def delete_long_task():
     # returning data as json for url checked in ajax
     return (jsonify(LongTasksLeft))
 
+
+# ROUTE TO SEND TASKS TO ACCOMPLISHED PAGE
+@app.route("/move_task", methods=["POST"])
+@login_required
+def checked():
+    """moving completed items to accomplished page"""
+    clicked_tasks = request.form.getlist("click_task")
+    for item in clicked_tasks:
+        # define var that holds query to select the id of every checked_item
+        clicked_task = db.execute("SELECT * FROM reminders WHERE id = :task",
+                                      task=item)
+        clicked_task = clicked_task[0]
+        # insert checked item(s) to completed table
+        db.execute("INSERT INTO completed (name, user_id, datetime) VALUES (:name, :user_id, :datetime)",
+                   name=clicked_task['name'], user_id=session['user_id'], datetime=get_datetime())
+        # removing checked item(s) from reminders table
+        db.execute("DELETE FROM reminders WHERE id = :task_id",
+                   task_id=clicked_task['id'])
+
+    # rendering all tasks based on user_id
+    tasks = db.execute("SELECT * FROM reminders WHERE user_id = :user_id",
+                           user_id=session["user_id"])
+
+    # returning data as json for url checked in ajax
+    return (jsonify(tasks))

@@ -36,4 +36,34 @@ $(document).ready(function () {
       });
     }
   });
+
+  // COMPLETED ITEMS
+  $("#accomplished_button").click(function () {
+    if ($("form").serialize().length != 0) {
+      $.ajax({
+        type: "POST",
+        url: "move_task",
+        data: $("form").serialize(),
+        success: function (data) {
+          $("#tasksTable").empty();
+
+          var newhtmlcode = "";
+          if (data.length != 0) {
+            $.each(data, function (i, item) {
+              newhtmlcode += '<tr><td class="checkbox">';
+              newhtmlcode += '<form action="/checked" method="post">';
+              newhtmlcode += '<input type="checkbox" value="' + data[i]["id"];
+              newhtmlcode += '" id="' + data[i]["id"];
+              newhtmlcode += '" name="click_task"></form></td>';
+              newhtmlcode += "<td>" + data[i]["name"] + "</td>";
+              newhtmlcode += "<td>" + data[i]["datetime"] + "</td>";
+              newhtmlcode += "<tr>";
+            });
+          }
+          //   append
+          $("#tasksTable").append(newhtmlcode);
+        },
+      });
+    }
+  });
 });
