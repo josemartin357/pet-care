@@ -1,5 +1,4 @@
 <!-- this will extend from layout -->
-<!-- tasks page will be here -->
 
 {% extends "layout.html" %} {% block title %} Index {% endblock %} {% block main
 %}
@@ -7,6 +6,11 @@
 <script src="/static/tasks.js"></script>
 
 <h1>Enter your pet activities here</h1>
+<p>
+  Use the form below to enter an entry for a task regarding your furry friend
+  that needs to be handled in the next 24 hours
+</p>
+
 <!-- form to submit task -->
 <form action="/" method="post">
   <div>
@@ -24,17 +28,20 @@
 
 <table>
   <!-- table head where tasks will load -->
-  <thead>
+  {% if tasks %}
+  <thead id="tasksHead">
     <tr>
+      <th></th>
       <th>Task Details</th>
       <th>Created On</th>
     </tr>
   </thead>
+  {% endif %}
   <!-- table body -->
   <tbody id="tasksTable">
     <!-- if there are tasks saved, show them -->
     {% if tasks %}
-    <form>
+    <form method="post">
       {% for task in tasks %}
       <tr>
         <td class="checkbox">
@@ -53,6 +60,11 @@
       </tr>
       {% endfor %}
     </form>
+    <!-- if no tasks, invite user to add them -->
+    {% else %}
+    <tr>
+      <td>There are no entries submitted.</td>
+    </tr>
     {% endif %}
   </tbody>
 </table>

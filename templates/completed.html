@@ -6,12 +6,14 @@
 
 <table>
   <!-- TABLE HEAD -->
+  {% if finished_tasks %}
   <thead>
     <tr>
       <th>Task</th>
       <th>Marked As Finished On</th>
     </tr>
   </thead>
+  {% endif %}
   <!-- TABLE BODY -->
   <tbody>
     <!-- if there are tasks to display -->

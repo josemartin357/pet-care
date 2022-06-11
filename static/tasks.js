@@ -30,6 +30,12 @@ $(document).ready(function () {
               newhtmlcode += "<tr>";
             });
           }
+          // else, if there is no data, fill html with this
+          else {
+            $("#tasksHead").empty();
+            newhtmlcode +=
+              '<tr><td colspan="3">There are no entries submitted.</td></tr>';
+          }
           //   appending table body with new html code
           $("#tasksTable").append(newhtmlcode);
         },
@@ -59,6 +65,11 @@ $(document).ready(function () {
               newhtmlcode += "<td>" + data[i]["datetime"] + "</td>";
               newhtmlcode += "<tr>";
             });
+          } // else, if there is no data, fill html with this
+          else {
+            $("#tasksHead").empty();
+            newhtmlcode +=
+              '<tr><td colspan="3">There are no entries submitted.</td></tr>';
           }
           //   append
           $("#tasksTable").append(newhtmlcode);
