@@ -3,20 +3,30 @@
 
 {% extends "layout.html" %} {% block title %} Sign In {% endblock %} {% block
 main %}
-<form action="/login" method="post">
-  <div>
+<form class="w-50 justify-content-center mx-auto" action="/login" method="post">
+  <div class="form-group">
+    <label class="float-left" for="loginUser">Enter your username</label>
     <input
       autocomplete="off"
       autofocus
       name="username"
-      placeholder="Enter your username"
+      placeholder="Example: Fido2022 or Meowise2022"
       type="text"
+      id="loginUser"
+      class="form-control"
     />
   </div>
-  <div>
-    <input name="password" placeholder="Enter your password" type="password" />
+  <div class="form-group">
+    <label class="float-left" for="loginPass">Enter your password</label>
+    <input
+      name="password"
+      placeholder="************"
+      type="password"
+      id="loginPass"
+      class="form-control"
+    />
   </div>
-  <button type="submit">Sign In</button>
+  <button class="lead btn btn-sm btn-primary" type="submit">Sign In</button>
 </form>
 <br />
 <p>Don't have an account? <a href="/register">Register here</a></p>

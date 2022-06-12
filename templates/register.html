@@ -3,58 +3,88 @@
 
 {% extends "layout.html" %} {% block title %} Create Account {% endblock %} {%
 block main %}
-<form action="/register" method="post">
-  <div>
-    <input
-      autocomplete="off"
-      autofocus
-      name="firstname"
-      placeholder="First Name"
-      type="text"
-    />
+<form
+  class="w-75 justify-content-center mx-auto"
+  action="/register"
+  method="post"
+>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label class="float-left" for="inputFirst">First Name</label>
+      <input
+        autocomplete="off"
+        autofocus
+        name="firstname"
+        placeholder="Example: Fido"
+        type="text"
+        id="inputFirst"
+        class="form-control"
+      />
+    </div>
+    <div class="form-group col-md-6">
+      <label class="float-left" for="inputLast">Last Name</label>
+      <input
+        autocomplete="off"
+        name="lastname"
+        placeholder="Example: Doggo"
+        type="text"
+        id="inputLast"
+        class="form-control"
+      />
+    </div>
   </div>
-  <div>
-    <input
-      autocomplete="off"
-      name="lastname"
-      placeholder="Last Name"
-      type="text"
-    />
-  </div>
-  <div>
+
+  <div class="form-group">
+    <label class="float-left" for="inputEmail">Email Address</label>
     <input
       autocomplete="off"
       name="email"
-      placeholder="Email Address"
+      placeholder="Example: fido@furbaby.com"
       type="text"
+      id="inputEmail"
+      class="form-control"
     />
   </div>
-  <div>
+
+  <div class="form-group">
+    <label class="float-left" for="inputUser">Username</label>
     <input
       autocomplete="off"
       name="username"
-      placeholder="Username"
+      placeholder="Example: fido2022 or Meowise2022"
       type="text"
+      id="inputUser"
+      class="form-control"
     />
   </div>
-  <div>
-    <input
-      autocomplete="off"
-      name="password"
-      placeholder="Password"
-      type="password"
-    />
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label class="float-left" for="inputPass1">Enter your password</label>
+      <input
+        autocomplete="off"
+        name="password"
+        placeholder="***********"
+        type="password"
+        id="inputPass1"
+        class="form-control"
+      />
+    </div>
+    <div class="form-group col-md-6">
+      <label class="float-left" for="inputPass2">Confirm your password</label>
+      <input
+        autocomplete="off"
+        name="confirmation"
+        placeholder="***********"
+        type="password"
+        id="inputPass2"
+        class="form-control"
+      />
+    </div>
   </div>
-  <div>
-    <input
-      autocomplete="off"
-      name="confirmation"
-      placeholder="Confirm Password"
-      type="password"
-    />
-  </div>
-  <button type="submit">Register</button>
+
+  <button class="lead btn btn-sm btn-primary" type="submit">Register</button>
 </form>
 <br />
-<p>Already have an account? <a href="/login">Sign in</a></p>
+<p class="lead">Already have an account? <a href="/login">Sign in</a></p>
 {% endblock %}
