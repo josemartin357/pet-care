@@ -8,6 +8,7 @@ from flask import Flask, flash, jsonify, redirect, render_template, request, ses
 from flask_session import Session
 from werkzeug.exceptions import default_exceptions
 from werkzeug.security import check_password_hash, generate_password_hash
+from flask_fontawesome import FontAwesome
 
 from helpers import apology, login_required, get_datetime
 
@@ -18,6 +19,8 @@ from helpers import apology, login_required, get_datetime
 
 # Configure application
 app = Flask(__name__)
+
+fa = FontAwesome(app)
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
