@@ -26,17 +26,19 @@
   </div>
   <br />
   <button class="lead btn btn-lg btn-primary" type="submit">Submit</button>
+  {% if tasks %}
   <hr class="mb-4" />
+  {% endif %}
 </form>
 
-<table>
-  <!-- table head where tasks will load -->
-  {% if tasks %}
-  <thead id="tasksHead">
+{% if tasks %}
+<!-- table where tasks will load -->
+<table class="table">
+  <thead id="tasksHead" class="thead-light">
     <tr>
-      <th></th>
-      <th>Task Details</th>
-      <th>Created On</th>
+      <th scope="col">#</th>
+      <th scope="col">Task Details</th>
+      <th scope="col">Created On</th>
     </tr>
   </thead>
   {% endif %}
@@ -65,6 +67,7 @@
     </form>
     <!-- if no tasks, invite user to add them -->
     {% else %}
+    <br /><br />
     <tr>
       <td>There are no entries submitted.</td>
     </tr>
@@ -72,6 +75,7 @@
   </tbody>
 </table>
 <br />
+{% if tasks %}
 <!-- complete button -->
 <div class="d-flex justify-content-center">
   <div class="col-md-3 mb-3">
@@ -94,4 +98,4 @@
     </button>
   </div>
 </div>
-{% endblock %}
+{% endif %} {% endblock %}

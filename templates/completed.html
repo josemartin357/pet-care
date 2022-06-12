@@ -2,15 +2,21 @@
 {% extends "layout.html" %} {% block title %} Accomplished Tasks {% endblock %}
 {% block main %}
 
-<h1>Accomplished Tasks</h1>
-
-<table>
+<h1 class="cover-heading">Accomplished Tasks</h1>
+<p class="lead">
+  Below you will find your pet's tasks that have been completed.
+</p>
+{% if finished_tasks %}
+<p class="lead">Congrats! You and your pet a great team!!!</p>
+{% endif %}
+<!-- table starts here -->
+{% if finished_tasks %}
+<table class="table">
   <!-- TABLE HEAD -->
-  {% if finished_tasks %}
-  <thead>
+  <thead class="thead-light">
     <tr>
-      <th>Task</th>
-      <th>Marked As Finished On</th>
+      <th scope="col">Task</th>
+      <th scope="col">Marked As Finished On</th>
     </tr>
   </thead>
   {% endif %}
@@ -27,22 +33,34 @@
     {% endfor %}
     <!-- else if there are no tasks to display -->
     {% else %}
+    <br />
+    <br />
     <tr>
-      <td>
+      <td class="lead">
         No entries available.
         <br />
         Did you forget to mark your tasks as completed?
         <br />
-        Click this
-        <a href="/"><span>link</span></a> and choose the tasks that have been
-        finished.
+        Click below and choose the tasks that have been finished.
       </td>
+      <br />
+      <br />
+      <div class="col-md-12 mb-3 d-flex justify-content-center">
+        <a href="/">
+          <button class="lead btn btn-sm btn-primary">Follow this link</button>
+        </a>
+      </div>
     </tr>
     {% endif %}
   </tbody>
 </table>
 <!-- BUTTON TO CLEAR TASKS -->
+{% if finished_tasks %}
 <form method="post" action="/accomplished">
-  <button type="submit">Clear your finished tasks</button>
+  <div class="col-md-12 mb-3 d-flex justify-content-center">
+    <button class="lead btn btn-sm btn-primary" type="submit">
+      Clear your finished tasks
+    </button>
+  </div>
 </form>
-{% endblock %}
+{% endif %} {% endblock %}
