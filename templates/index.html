@@ -5,8 +5,8 @@
 
 <script src="/static/tasks.js"></script>
 
-<h1>Enter your pet activities here</h1>
-<p>
+<h1 class="cover-heading">Enter your pet activities here</h1>
+<p class="lead">
   Use the form below to enter an entry for a task regarding your furry friend
   that needs to be handled in the next 24 hours
 </p>
@@ -21,9 +21,12 @@
       autofocus
       placeholder="Enter a task here"
       type="text"
+      class="w-50"
     />
   </div>
-  <button type="submit">Submit</button>
+  <br />
+  <button class="lead btn btn-lg btn-primary" type="submit">Submit</button>
+  <hr class="mb-4" />
 </form>
 
 <table>
@@ -68,13 +71,27 @@
     {% endif %}
   </tbody>
 </table>
+<br />
 <!-- complete button -->
-<div>
-  <button type="submit" id="accomplished_button">Mark As Finished</button>
-</div>
-
-<!-- delete button -->
-<div>
-  <button type="submit" id="delete_button">Delete Task</button>
+<div class="d-flex justify-content-center">
+  <div class="col-md-3 mb-3">
+    <button
+      class="lead btn btn-sm btn-primary"
+      type="submit"
+      id="accomplished_button"
+    >
+      Mark As Finished
+    </button>
+  </div>
+  <!-- delete button -->
+  <div class="col-md-3 mb-3">
+    <button
+      class="lead btn btn-sm btn-primary"
+      type="submit"
+      id="delete_button"
+    >
+      Delete Task
+    </button>
+  </div>
 </div>
 {% endblock %}
