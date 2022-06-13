@@ -23,23 +23,27 @@ $(document).ready(function () {
             // we run function that fills newLongTaskhtml with existing data
             $.each(data, function (i, item) {
               newLongTaskshtml +=
-                '<tr><td class="checkbox"><form method="post"><input type="checkbox" value="' +
+                '<tr><td class="checkbox"><form method="post"><div><input type="checkbox" value="' +
                 data[i]["id"] +
                 '" id="' +
                 data[i]["id"] +
-                '" name="click_longTask"></form></td>';
+                '" name="click_longTask" class="click_longTask"/></div></form></td>';
               newLongTaskshtml += "<td>" + data[i]["name"] + "</td>";
               newLongTaskshtml += "<td>" + data[i]["datetime"] + "</td>";
               newLongTaskshtml += "</tr>";
             });
+            // reload so table will reload
+            location.reload();
           }
           // else, if there is no data ..
           else {
             // empty table head
             $("#longTasksHead").empty();
+            $("#formmb").empty();
+            $("#formbuttons").empty();
             // fill html with this
             newLongTaskshtml +=
-              "<tr><td>There are no tasks entered that are due in a long term.<br />Do not let your memory fail you.<br />Add them in this page.</td></tr>";
+              '<br /><br /><tr><td class="lead">There are no tasks entered that are due in a long term.<br />Do not let your memory fail you.<br />Add them in this page.</td></tr>';
           }
           //   appending table body with new html code
           $("#longTasksTable").append(newLongTaskshtml);
@@ -62,22 +66,26 @@ $(document).ready(function () {
           if (data.length != 0) {
             $.each(data, function (i, item) {
               newLongTaskshtml +=
-                '<tr><td class="checkbox"><form method="post"><input type="checkbox" value="' +
+                '<tr><td class="checkbox"><form method="post"><div><input type="checkbox" value="' +
                 data[i]["id"] +
                 '" id="' +
                 data[i]["id"] +
-                '" name="click_longTask"></form></td>';
+                '" name="click_longTask" class="click_longTask"/></div></form></td>';
               newLongTaskshtml += "<td>" + data[i]["name"] + "</td>";
               newLongTaskshtml += "<td>" + data[i]["datetime"] + "</td>";
               newLongTaskshtml += "</tr>";
             });
+            // reload so table will reload
+            location.reload();
           } // else, if there is no data ..
           else {
             // empty table head
             $("#longTasksHead").empty();
+            $("#formmb").empty();
+            $("#formbuttons").empty();
             // fill html with this
             newLongTaskshtml +=
-              "<tr><td>There are no tasks entered that are due in a long term.<br />Do not let your memory fail you.<br />Add them in this page.</td></tr>";
+              '<br /><br /><tr><td class="lead">There are no tasks entered that are due in a long term.<br />Do not let your memory fail you.<br />Add them in this page.</td></tr>';
           }
           $("#longTasksTable").append(newLongTaskshtml);
         },

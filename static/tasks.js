@@ -20,21 +20,26 @@ $(document).ready(function () {
           if (data.length != 0) {
             // we run function that fills newhtmlcode with data
             $.each(data, function (i, item) {
-              newhtmlcode += '<tr><td class="checkbox">';
+              newhtmlcode += '<tr><td class="checkbox"><div>';
               newhtmlcode += '<form action="/checked" method="post">';
               newhtmlcode += '<input type="checkbox" value="' + data[i]["id"];
               newhtmlcode += '" id="' + data[i]["id"];
-              newhtmlcode += '" name="click_task"></form></td>';
+              newhtmlcode +=
+                '" name="click_task" class="click_task"/></form></div></td>';
               newhtmlcode += "<td>" + data[i]["name"] + "</td>";
               newhtmlcode += "<td>" + data[i]["datetime"] + "</td>";
               newhtmlcode += "<tr>";
             });
+            // reload so table will reload
+            location.reload();
           }
           // else, if there is no data, fill html with this
           else {
             $("#tasksHead").empty();
+            $("#formmb").empty();
+            $("#formbuttons").empty();
             newhtmlcode +=
-              '<tr><td colspan="3">There are no entries submitted.</td></tr>';
+              '<br /><br /><tr><td class="lead">There are no entries submitted.</td></tr>';
           }
           //   appending table body with new html code
           $("#tasksTable").append(newhtmlcode);
@@ -56,20 +61,25 @@ $(document).ready(function () {
           var newhtmlcode = "";
           if (data.length != 0) {
             $.each(data, function (i, item) {
-              newhtmlcode += '<tr><td class="checkbox">';
+              newhtmlcode += '<tr><td class="checkbox"><div>';
               newhtmlcode += '<form action="/checked" method="post">';
               newhtmlcode += '<input type="checkbox" value="' + data[i]["id"];
               newhtmlcode += '" id="' + data[i]["id"];
-              newhtmlcode += '" name="click_task"></form></td>';
+              newhtmlcode +=
+                '" name="click_task" class="click_task"/></form></div></td>';
               newhtmlcode += "<td>" + data[i]["name"] + "</td>";
               newhtmlcode += "<td>" + data[i]["datetime"] + "</td>";
               newhtmlcode += "<tr>";
             });
+            // reload so table will reload
+            location.reload();
           } // else, if there is no data, fill html with this
           else {
             $("#tasksHead").empty();
+            $("#formmb").empty();
+            $("#formbuttons").empty();
             newhtmlcode +=
-              '<tr><td colspan="3">There are no entries submitted.</td></tr>';
+              '<br /><br /><tr><td class="lead">There are no entries submitted.</td></tr>';
           }
           //   append
           $("#tasksTable").append(newhtmlcode);
