@@ -26,7 +26,10 @@ block main %}
     />
   </div>
   <br />
-  <button class="lead btn btn-lg btn-primary" type="submit">Submit</button>
+  <button class="button text-white" type="submit">
+    <span class="text">Submit</span>
+    <i class="ri-check-line icon"></i>
+  </button>
   {% if longTasks %}
   <hr class="mb-4" />
   {% endif %}
@@ -35,7 +38,7 @@ block main %}
 {% if longTasks %}
 <table class="table">
   <!-- TABLE HEAD -->
-  <thead id="longTasksHead" class="thead-light">
+  <thead id="longTasksHead" style="background-color: #f1f1ef">
     <tr>
       <th scope="col">#</th>
       <th scope="col">Task Details</th>
@@ -88,9 +91,10 @@ block main %}
 <div class="d-flex justify-content-center">
   <div class="col-md-3 mb-3">
     <button
-      class="lead btn btn-sm btn-primary"
+      class="lead btn btn-sm text-white"
       type="submit"
       id="accomplished_task_button"
+      style="background-color: #d8a639"
     >
       Mark As Finished
     </button>
@@ -99,9 +103,10 @@ block main %}
   <!-- DELETE BUTTON -->
   <div class="col-md-3 mb-3">
     <button
-      class="lead btn btn-sm btn-primary"
+      class="lead btn btn-sm text-white"
       type="submit"
       id="delete_button"
+      style="background-color: #d8a639"
     >
       Delete Task
     </button>

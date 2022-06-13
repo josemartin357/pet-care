@@ -7,13 +7,22 @@
   Below you will find your pet's tasks that have been completed.
 </p>
 {% if finished_tasks %}
-<p class="lead">Congrats! You and your pet a great team!!!</p>
+<p class="lead">
+  Congrats! You and your pet are a great team
+  <img
+    src="/static/paw-solid.svg"
+    width="30"
+    height="30"
+    class="d-inline-block align-top"
+    alt="paw"
+  />
+</p>
 {% endif %}
 <!-- table starts here -->
 {% if finished_tasks %}
 <table class="table">
   <!-- TABLE HEAD -->
-  <thead class="thead-light">
+  <thead style="background-color: #f1f1ef">
     <tr>
       <th scope="col">Task</th>
       <th scope="col">Marked As Finished On</th>
@@ -58,8 +67,12 @@
 {% if finished_tasks %}
 <form method="post" action="/accomplished">
   <div class="col-md-12 mb-3 d-flex justify-content-center">
-    <button class="lead btn btn-sm btn-primary" type="submit">
-      Clear your finished tasks
+    <button
+      class="lead btn btn-sm text-white"
+      type="submit"
+      style="background-color: #d8a639"
+    >
+      Clear finished tasks
     </button>
   </div>
 </form>
