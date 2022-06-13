@@ -20,9 +20,9 @@
 {% endif %}
 <!-- table starts here -->
 {% if finished_tasks %}
-<table class="table">
+<table class="table table-striped">
   <!-- TABLE HEAD -->
-  <thead style="background-color: #f1f1ef">
+  <thead class="text-white" style="background-color: #425db2">
     <tr>
       <th scope="col">Task</th>
       <th scope="col">Marked As Finished On</th>
@@ -56,7 +56,9 @@
       <br />
       <div class="col-md-12 mb-3 d-flex justify-content-center">
         <a href="/">
-          <button class="lead btn btn-sm btn-primary">Follow this link</button>
+          <button class="lead btn text-white" style="background-color: #425db2">
+            Follow this link
+          </button>
         </a>
       </div>
     </tr>
@@ -68,9 +70,9 @@
 <form method="post" action="/accomplished">
   <div class="col-md-12 mb-3 d-flex justify-content-center">
     <button
-      class="lead btn btn-sm text-white"
+      class="lead btn text-white"
       type="submit"
-      style="background-color: #d8a639"
+      style="background-color: #eb393d"
     >
       Clear finished tasks
     </button>

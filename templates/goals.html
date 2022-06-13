@@ -36,9 +36,13 @@ block main %}
 </form>
 
 {% if longTasks %}
-<table class="table">
+<table class="table table-striped">
   <!-- TABLE HEAD -->
-  <thead id="longTasksHead" style="background-color: #f1f1ef">
+  <thead
+    id="longTasksHead"
+    class="text-white"
+    style="background-color: #425db2"
+  >
     <tr>
       <th scope="col">#</th>
       <th scope="col">Task Details</th>
@@ -91,10 +95,10 @@ block main %}
 <div class="d-flex justify-content-center">
   <div class="col-md-3 mb-3">
     <button
-      class="lead btn btn-sm text-white"
+      class="lead btn text-white"
       type="submit"
       id="accomplished_task_button"
-      style="background-color: #d8a639"
+      style="background-color: #eb393d"
     >
       Mark As Finished
     </button>
@@ -103,10 +107,10 @@ block main %}
   <!-- DELETE BUTTON -->
   <div class="col-md-3 mb-3">
     <button
-      class="lead btn btn-sm text-white"
+      class="lead btn text-white"
       type="submit"
       id="delete_button"
-      style="background-color: #d8a639"
+      style="background-color: #eb393d"
     >
       Delete Task
     </button>

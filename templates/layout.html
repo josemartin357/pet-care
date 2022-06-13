@@ -25,18 +25,29 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <!-- ajax link -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <!-- using block title from htmls -->
     <title>PetCare: {% block title %}{% endblock %}</title>
   </head>
   <body class="text-center">
-    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-      <header class="masthead mb-auto" style="background-color: #5a7232">
-        <div class="inner">
-          <a class="navbar-brand animate-nav-brand h1 text-white" href="/">
+    <div class="cover-container d-flex h-1 p-3 mx-auto flex-column">
+      <header class="masthead mb-auto" style="background-color: #eb393d">
+        <div class="inner mt-2">
+          <a
+            class="navbar-brand animate-nav-brand text-white"
+            style="font-weight: bold; font-size: xxx-large"
+            href="/"
+          >
             <img
               src="/static/paw-solid.svg"
-              width="30"
-              height="30"
+              width="60"
+              height="60"
               class="d-inline-block align-top"
               alt="paw"
             />
@@ -127,7 +138,9 @@
       <br />
       <br />
       <footer class="mastfoot mt-auto">
-        <div class="inner">Copyright © 2022</div>
+        <div class="inner">
+          Copyright © 2022 Martin Bedoya. All rights reserved.
+        </div>
       </footer>
     </div>
   </body>

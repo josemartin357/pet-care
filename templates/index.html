@@ -36,8 +36,8 @@
 
 {% if tasks %}
 <!-- table where tasks will load -->
-<table class="table">
-  <thead id="tasksHead" style="background-color: #f1f1ef">
+<table class="table table-striped">
+  <thead id="tasksHead" class="text-white" style="background-color: #425db2">
     <tr>
       <th scope="col">#</th>
       <th scope="col">Task Details</th>
@@ -83,10 +83,10 @@
 <div class="d-flex justify-content-center">
   <div class="col-md-3 mb-3">
     <button
-      class="lead btn btn-sm text-white"
+      class="lead btn text-white"
       type="submit"
       id="accomplished_button"
-      style="background-color: #d8a639"
+      style="background-color: #eb393d"
     >
       Mark As Finished
     </button>
@@ -94,10 +94,10 @@
   <!-- delete button -->
   <div class="col-md-3 mb-3">
     <button
-      class="lead btn btn-sm text-white"
+      class="lead btn text-white"
       type="submit"
       id="delete_button"
-      style="background-color: #d8a639"
+      style="background-color: #eb393d"
     >
       Delete Task
     </button>
