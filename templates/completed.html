@@ -4,7 +4,7 @@
 
 <h1 class="cover-heading">Accomplished Tasks</h1>
 <p class="lead">
-  Below you will find your pet's tasks that have been completed.
+  Below you will find any tasks related to your pet that have been completed.
 </p>
 {% if finished_tasks %}
 <p class="lead">
@@ -21,7 +21,7 @@
 <!-- table starts here -->
 {% if finished_tasks %}
 <table class="table table-striped">
-  <!-- TABLE HEAD -->
+  <!-- table head -->
   <thead class="text-white" style="background-color: #425db2">
     <tr>
       <th scope="col">Task</th>
@@ -29,7 +29,7 @@
     </tr>
   </thead>
   {% endif %}
-  <!-- TABLE BODY -->
+  <!-- Table body -->
   <tbody>
     <!-- if there are tasks to display -->
     {% if finished_tasks %}
@@ -65,7 +65,7 @@
     {% endif %}
   </tbody>
 </table>
-<!-- BUTTON TO CLEAR TASKS -->
+<!-- button to clear tasks -->
 {% if finished_tasks %}
 <form method="post" action="/accomplished">
   <div class="col-md-12 mb-3 d-flex justify-content-center">

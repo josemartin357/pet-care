@@ -1,3 +1,4 @@
+/* google font */
 * {
   font-family: "Roboto Condensed", sans-serif;
 }
@@ -31,7 +32,6 @@
 }
 
 /* submit button */
-
 .button {
   position: relative;
   width: 100px;

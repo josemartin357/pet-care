@@ -36,10 +36,10 @@ block main %}
   </div>
   {% endif %}
 </form>
-
+<!-- table where tasks will render -->
 {% if longTasks %}
 <table id="tableid" class="table table-striped">
-  <!-- TABLE HEAD -->
+  <!-- table head -->
   <thead
     id="longTasksHead"
     class="text-white"
@@ -52,7 +52,7 @@ block main %}
     </tr>
   </thead>
   {% endif %}
-  <!-- TABLE BODY -->
+  <!-- table body -->
   <tbody id="longTasksTable">
     <!-- if there are entries -->
     {% if longTasks %}
@@ -106,7 +106,7 @@ block main %}
     </button>
   </div>
 
-  <!-- DELETE BUTTON -->
+  <!-- delete button -->
   <div class="col-md-3 mb-3">
     <button
       class="lead btn text-white"
